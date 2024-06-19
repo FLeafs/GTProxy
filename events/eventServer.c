@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#inclyde <stdlib.h>
 
 #include "eventServer.h"
 #include "../enet/include/enet.h"
@@ -28,6 +29,15 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
             char* packetText = GetTextPointerFromPacket(event.packet);
             printf("[SERVER -> CLIENT] Packet 3: received packet text: %s\n", packetText);
             enet_peerSend(event.packet, clientPeer);
+            switch(packetText) {
+                case "action|logon_fail": {
+                    system("curl http://127.0.0.1:3000/proxyDisconnect");
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
             break;
         }
         case 4: {
