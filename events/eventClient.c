@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "eventClient.h"
 #include "eventServer.h"
@@ -199,6 +200,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
 void clientDisconnect() {
     printf("[CLIENT -> SERVER] Client just disconnected from Proxy\n");
+    system("curl http://127.0.0.1:3000/proxyDisconnect");
     isLoop = 0;
     doLoop = 1;
 }
