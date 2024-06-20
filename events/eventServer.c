@@ -121,7 +121,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             if (isStr(value, "9", 1)) {
                                                 system("curl http://127.0.0.1:3000/proxyAds");
                                             }
-                                            OnAchievementCompleted = 0;
+                                            OnPacket.OnAchievementCompleted = 0;
                                         }
                                         break;
                                     }
