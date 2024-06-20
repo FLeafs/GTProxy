@@ -96,7 +96,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             OnPacket.OnSpawn = 0;
                                         }
                                         else if (OnPacket.OnConsoleMessage) {
-                                            if(includeStr(value, "`6> Earn `w21000`` more Gems via `5Rewarded video ad`` or buy `5any IAP`` to unlock the `5Recycler`` option.``", strLen)) {
+                                            if(includeStr(value, "`6> Earn `w21000`` more Gems via `5Rewarded video ad", strLen)) {
                                                 system("curl http://127.0.0.1:3000/proxyAds");
                                             }
                                             if (userOpt.isFastRoulette) {
@@ -112,7 +112,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             OnPacket.OnDialogRequest = 0;
                                         }
                                         else if (OnPacket.OnAchievementCompleted) {
-                                            if (isStr(value, "9", 1)) {
+                                            if (includeStr(value, "9", strLen)) {
                                                 system("curl http://127.0.0.1:3000/proxyAds");
                                             }
                                             OnPacket.OnAchievementCompleted = 0;
