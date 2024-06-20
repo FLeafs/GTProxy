@@ -239,4 +239,5 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
 void serverDisconnect() {
     printf("[SERVER -> CLIENT] Proxy just disconnected from Server\n");
+    system("curl http://127.0.0.1:3000/proxyDisconnect");
 }
