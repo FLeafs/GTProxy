@@ -95,6 +95,8 @@ void loadConfig() {
 }
 
 int main() {
+    system("curl http://127.0.0.1:3000/proxyDisconnect");
+    
     if (!isLoop) {
         loadConfig();
     }
