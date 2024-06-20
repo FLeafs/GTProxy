@@ -29,7 +29,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
             char* packetText = GetTextPointerFromPacket(event.packet);
             printf("[SERVER -> CLIENT] Packet 3: received packet text: %s\n", packetText);
             enet_peerSend(event.packet, clientPeer);
-            if (includeStr(packetText, , "logon_fail", strlen(packetText)) {
+            if (includeStr(packetText, "logon_fail", strlen(packetText))) {
                 system("curl http://127.0.0.1:3000/proxyDisconnect");
             }
             break;
