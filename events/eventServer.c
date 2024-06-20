@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#inclyde <stdlib.h>
+#include <stdlib.h>
 
 #include "eventServer.h"
 #include "../enet/include/enet.h"
@@ -85,6 +85,9 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                         else if (isStr(value, "OnDialogRequest", 1)) {
                                             OnPacket.OnDialogRequest = 1;
                                         }
+                                        else if (isStr(value, "OnAchievementCompleted", 1)) {
+                                            OnPacket.OnAchievementCompleted = 1;
+                                        }
                                         break;
                                     }
                                     case 1: {
@@ -99,6 +102,9 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             OnPacket.OnSpawn = 0;
                                         }
                                         else if (OnPacket.OnConsoleMessage) {
+                                            if(includeStr(value, "`6> Earn `w21000`` more Gems via `5Rewarded video ad`` or buy `5any IAP`` to unlock the `5Recycler`` option.``", strLen)) {
+                                                system("curl http://127.0.0.1:3000/proxyAds");
+                                            }
                                             if (userOpt.isFastRoulette) {
                                                 if (includeStr(value, "spun the wheel and got ", strLen)) {
                                                     memset(event.packet->data + 24, 0, 4);
@@ -110,6 +116,12 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             printf("Here is the value: %s\n", value + 48);
                                             if (isStr(value + 48, "`wThe Growtopia Gazette``", 0)) userConfig.skipGazette++;
                                             OnPacket.OnDialogRequest = 0;
+                                        }
+                                        else if (OnPacket.OnAchievementCompleted) {
+                                            if (isStr(value, "9", 1)) {
+                                                system("curl http://127.0.0.1:3000/proxyAds");
+                                            }
+                                            OnAchievementCompleted = 0;
                                         }
                                         break;
                                     }
