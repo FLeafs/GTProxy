@@ -34,6 +34,7 @@ struct OnPacket_ {
     char OnSpawn;
     char OnTalkBubble;
     char OnDialogRequest;
+    char OnAchievementCompleted;
 };
 
 struct OnConsoleMessage_ {
