@@ -87,7 +87,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                     case 1: {
                                         if (OnPacket.OnSpawn) {
                                             char** toSplit = strsplit(value, "\n", 0);
-                                            if (isStr(toSplit[11], "type|local", 1)) {
+                                            if (isStr(toSplit[14], "type|local", 1)) {
                                                 char** netid = strsplit(toSplit[findArray(toSplit, "netID|")], "|", 0);
                                                 OnSpawn.LocalNetid = atoi(netid[1]);
                                                 free(netid);
@@ -110,12 +110,6 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             printf("Here is the value: %s\n", value + 48);
                                             if (isStr(value + 48, "`wThe Growtopia Gazette``", 0)) userConfig.skipGazette++;
                                             OnPacket.OnDialogRequest = 0;
-                                        }
-                                        else if (OnPacket.OnAchievementCompleted) {
-                                            if (includeStr(value, "9", strLen)) {
-                                                system("curl http://127.0.0.1:3000/proxyAds");
-                                            }
-                                            OnPacket.OnAchievementCompleted = 0;
                                         }
                                         break;
                                     }
@@ -170,6 +164,18 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                 switch(index) {
                                     case 1: {
                                         if (OnPacket.OnSendToServer) OnSendToServer.port = value;
+                                        if (OnPacket.OnAchievementCompleted) {
+                                            switch(value) {
+                                                case 9: {
+                                                    system("curl http://127.0.0.1:3000/proxyAds");
+                                                    break;
+                                                }
+                                                default: {
+                                                    break;
+                                                }
+                                            }
+                                            OnPacket.OnAchievementCompleted = 0;
+                                        }
                                         break;
                                     }
                                     case 2: {
